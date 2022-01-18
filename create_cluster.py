@@ -9,8 +9,19 @@ def checkRG( rgName):
       return True
   return False
 
+def createCluster(rgName, clusterName, nodeCount):
+  print("Creating a cluster %s in group %s"%(clusterName, rgName))
+  print("This might take few minutes")
+  clusterStatus = json.loads(os.popen("az aks create --resource-group %s --name %s --node-count %d --enable-addons monitoring --generate-ssh-keys"%(rgName, clusterName, nodeCount)).read())["provisioningState"]
+  if clusterStatus == "Succeeded":
+    print("\nSuccessfully created cluster")
+  else:
+    print("\nFailed creating cluster")
+
 parser = argparse.ArgumentParser(description="Deploy Kubernetes Cluster on Azure")
 parser.add_argument("--rgName", "-r", required=True, help="Enter Resource Group")
+parser.add_argument("--clusterName", "-c", required=True, help="Enter Cluster Name")
+parser.add_argument("--nodeCount", "-n", required=True, help="Enter Node Count")
 args = parser.parse_args()
 
 print("Proceeding with eastus as default zone")
@@ -23,3 +34,5 @@ if not checkRG(args.rgName):
     print("Successfully created RG: %s"%(args.rgName))
   else:
     print("Failed creating RG: %s"%(args.rgName))
+
+createCluster(args.rgName, args.clusterName, int(args.nodeCount))
