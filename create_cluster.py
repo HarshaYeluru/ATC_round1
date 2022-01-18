@@ -18,6 +18,13 @@ def createCluster(rgName, clusterName, nodeCount):
   else:
     print("\nFailed creating cluster")
 
+def setDefaultCluster(rgName, clusterName):
+  print("Setting up %s as default cluster"%(clusterName))
+  if os.system("az aks get-credentials --resource-group %s --name %s"%(rgName, clusterName)) == 0:
+    print("Configured %s as default cluster"%(clusterName))
+  else:
+    print("Failed configuring %s as default cluster"%(clusterName))
+
 parser = argparse.ArgumentParser(description="Deploy Kubernetes Cluster on Azure")
 parser.add_argument("--rgName", "-r", required=True, help="Enter Resource Group")
 parser.add_argument("--clusterName", "-c", required=True, help="Enter Cluster Name")
@@ -26,7 +33,6 @@ args = parser.parse_args()
 
 print("Proceeding with eastus as default zone")
 zone = "eastus"
-
 if not checkRG(args.rgName):
   print("Given Resource Group doesn't exist. Creating a new Resource group: %s"%(args.rgName))
   RGStatus = json.loads(os.popen("az group create -l %s -n %s"%(zone, args.rgName)).read())["properties"]["provisioningState"]
@@ -36,3 +42,4 @@ if not checkRG(args.rgName):
     print("Failed creating RG: %s"%(args.rgName))
 
 createCluster(args.rgName, args.clusterName, int(args.nodeCount))
+setDefaultCluster(args.rgName, args.clusterName)
