@@ -1,5 +1,11 @@
 # ATC Round 1 - Kubernetes
 
+## Environment
+- The current setup is run on Azure cloud shell
+- Code is present in ATC_round1 repository 
+- Scripts are developed in Python3 
+- Manifest files are developed in YAML
+
 ## Step-01: Cluster creation
 - Clone the repository and go to the ATC_round1 directory
 - Execute the script with help option to see required arguments
@@ -45,3 +51,47 @@
 - This will create an Ingress controller to provide an SSL Termination
 
 - This will create a secret with SSL generated keys and added them to the pod at /tmp/ directory
+
+## Step-03: Test auto scaling
+- Execute the script check_autoscale.py
+
+```
+  python3 check_autoscale.py
+```
+
+- This will create a POD and sends multiple requests to the node JS application to test the autoscaling feature
+
+- Below is the sample output of the script
+
+```
+harsha@Azure:~/ATC_round1$ python3 check_autoscale.py
+Fetching IP address of nodejs service
+Created Load to test service scalability
+pod/load-generator created
+Current Node Count/min Replica: 1/1
+Current CPU/Target CPU: 0/5
+Current Node Count/min Replica: 1/1
+Current CPU/Target CPU: 90/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 26/5
+Node count increased to 4
+Deleting Load
+pod "load-generator" deleted
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 26/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 15/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 0/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 0/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 0/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 0/5
+Current Node Count/min Replica: 4/1
+Current CPU/Target CPU: 0/5
+Current Node Count/min Replica: 1/1
+Current CPU/Target CPU: 0/5
+Node count decreased to 1
+```
