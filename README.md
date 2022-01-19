@@ -55,6 +55,9 @@
 - templates/tls_secret.yml will create a secret with SSL generated keys and added them to the pod at /tmp/ directory
 
 ## Step-03: Test auto scaling
+
+- Wait till the service had a public IP assigned
+- 
 - Execute the script check_autoscale.py
 
 ```
