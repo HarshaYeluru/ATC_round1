@@ -17,6 +17,9 @@ spec:
       containers:
       - image: harsha975335/nodejs:basic
         name: nodejs
+        volumeMounts:
+        - name: tls-secret
+          mountPath: "/tmp/"
         resources:
           requests:
             cpu: "250m"
@@ -30,4 +33,8 @@ spec:
           valueFrom:
             secretKeyRef:
               name: api-access
-              key: api-user 
+              key: api-user
+      volumes:
+      - name: tls-secret
+        secret:
+          secretName: nodejs-tls
