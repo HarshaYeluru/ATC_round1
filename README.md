@@ -36,5 +36,5 @@
   kubectl apply -f templates/
 ```
 
-- This will create a nodejs service which scales upto 10 pods based on the ncoming requests
+- This will create a nodejs service which scales upto 4 pods based on the CPU utilization. If CPU utilization is more than 5%, a new pod is created automatically
 
