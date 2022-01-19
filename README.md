@@ -24,7 +24,7 @@
 - Execute python with above arguments to mention the resource group, cluster name and node count to be deployed
 
 ```
-  python3 create_cluster.py -r kubecluster -c clus1 -n 1
+  python3 create_cluster.py -r kubecluster -c cluster1 -n 1
 ```
 
 - The script will take around 5-10 minutes to execute and once complete, will create a cluster with given number of nodes in the mentioned resource group and will set it to default
@@ -33,7 +33,7 @@
 - Run kubectl apply command on the templates directory to create deployment and a service
 
 ```
-  kubectl apply -f templates
+  kubectl apply -f templates/
 ```
 
 - This will create a nodejs service which scales upto 10 pods based on the ncoming requests

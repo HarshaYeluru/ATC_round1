@@ -17,3 +17,6 @@ spec:
       containers:
       - image: harsha975335/nodejs:basic
         name: nodejs
+        resources:
+          requests:
+            cpu: "250m"
