@@ -3,9 +3,9 @@ import argparse
 import json
 
 def checkRG( rgName):
-''' Check if given Resource Group exists
-    Return True if yes, False if not
-'''
+  ''' Check if given Resource Group exists
+  Return True if yes, False if not
+  '''
 
   RGList = json.loads(os.popen("az group list").read())
   for rg in RGList:
@@ -14,9 +14,9 @@ def checkRG( rgName):
   return False
 
 def createCluster(rgName, clusterName, nodeCount):
-''' Create a cluster on the fly with given clusterName and in given resource group
-    Return True if cluster creation is successful and Flase if cluster creation fails
-'''
+  ''' Create a cluster on the fly with given clusterName and in given resource group
+  Return True if cluster creation is successful and Flase if cluster creation fails
+  '''
 
   print("Creating a cluster %s in group %s"%(clusterName, rgName))
   print("This might take few minutes")
@@ -29,8 +29,8 @@ def createCluster(rgName, clusterName, nodeCount):
     return False
 
 def setDefaultCluster(rgName, clusterName):
-''' Set the cluster create above as default
-'''
+  ''' Set the cluster create above as default
+  '''
   print("Setting up %s as default cluster"%(clusterName))
   if os.system("az aks get-credentials --resource-group %s --name %s"%(rgName, clusterName)) == 0:
     print("Configured %s as default cluster"%(clusterName))
