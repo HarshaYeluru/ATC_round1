@@ -6,7 +6,7 @@ def fetchSvcIp():
   return(os.popen("kubectl get svc nodejs-svc -o=jsonpath='{.status.loadBalancer.ingress[*].ip}'").read())
 
 def createLoad(svcIP):
-  print("Created Load to test service scalability")
+  print("Created Load Generator POD to test service scalability")
   os.system('kubectl run load-generator --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.00001; do wget -q -O- http://' + svcIP + ':8081/; done"')
 
 def monitorLoad(stage):
@@ -16,17 +16,17 @@ def monitorLoad(stage):
     print("Current CPU/Target CPU: %s/%s"%(currentCPU, targetCPU))
     if stage == "before":
       if minReplicas != currentNodeCount:
-        print("Node count increased to %s"%(currentNodeCount))
+        print("NodeJS POD count increased to %s"%(currentNodeCount))
         break
       time.sleep(60)
     if stage == "after":
       if minReplicas == currentNodeCount:
-        print("Node count decreased to %s"%(currentNodeCount))
+        print("NodeJS POD count decreased to %s"%(currentNodeCount))
         break
       time.sleep(60)
 
 def deleteLoad():
-  print("Deleting Load")
+  print("Deleting Load Generator POD")
   os.system("kubectl delete pod load-generator")
 
 svcIP = fetchSvcIp()

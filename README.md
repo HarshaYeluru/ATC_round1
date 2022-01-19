@@ -42,15 +42,17 @@
   kubectl apply -f templates/
 ```
 
-- This will create a nodejs service which scales upto 4 pods based on the CPU utilization. If CPU utilization is more than 5%, a new pod is created automatically
+- templates/nodejs.yml will create a nodejs deployment
 
-- This will create a Load Balancer service which exposes port 8081
+- templates/nodejs-hpa.yml will create a nodejs service which scales upto 4 pods based on the CPU utilization. If CPU utilization is more than 5%, a new pod is created automatically
 
-- This will create a secret with environment variables called api_user and api_token in the POD 
+- templates/nodejs-svc.yml will create a Load Balancer service which exposes port 8081
 
-- This will create an Ingress controller to provide an SSL Termination
+- templates/nodejs-secret.yml will create a secret with environment variables called api_user and api_token in the POD 
 
-- This will create a secret with SSL generated keys and added them to the pod at /tmp/ directory
+- templates/ingress.yml will create an Ingress controller to provide an SSL Termination
+
+- templates/tls_secret.yml will create a secret with SSL generated keys and added them to the pod at /tmp/ directory
 
 ## Step-03: Test auto scaling
 - Execute the script check_autoscale.py
