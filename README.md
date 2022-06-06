@@ -1,4 +1,4 @@
-# ATC Round 1 - Kubernetes
+# AKS Auto Scaling
 
 ## Environment
 - The current setup is run on Azure cloud shell
